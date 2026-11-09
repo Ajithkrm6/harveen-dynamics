@@ -17,7 +17,7 @@ import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { ContactSection } from "../components/Contact";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 
 const PROGRAM_ICONS = [BookOpen, Workflow, Settings2];
 
