@@ -1,92 +1,120 @@
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Autoplay from "embla-carousel-autoplay";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 import { HERO_SLIDES } from "../lib/site";
 
 const INTERVAL_MS = 4500;
 
 export function HeroCarousel() {
-  const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const count = HERO_SLIDES.length;
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
 
   useEffect(() => {
-    if (paused) return;
-    const id = window.setInterval(() => setIndex((i) => (i + 1) % count), INTERVAL_MS);
-    return () => window.clearInterval(id);
-  }, [paused, count]);
+    if (!api) return;
 
-  const go = (next: number) => setIndex((next + count) % count);
-  const slide = HERO_SLIDES[index];
+    setCurrent(api.selectedScrollSnap());
+
+    const onSelect = () => {
+      setCurrent(api.selectedScrollSnap());
+    };
+
+    api.on("select", onSelect);
+
+    return () => {
+      api.off("select", onSelect);
+    };
+  }, [api]);
+
+  const goToSlide = (index: number) => {
+    api?.scrollTo(index);
+  };
 
   return (
     <div
       data-testid="hero-carousel"
-      className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-white/10 bg-card-dark shadow-2xl"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
+      className="relative w-full"
       aria-roledescription="carousel"
       aria-label="Harveen Dynamics training highlights"
     >
-      <AnimatePresence initial={false}>
-        <motion.img
-          key={slide.src}
-          src={slide.src}
-          alt={slide.alt}
-          data-testid={`hero-carousel-slide-${index + 1}`}
-          initial={{ opacity: 0, scale: 1.06 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="absolute inset-0 size-full object-cover"
-        />
-      </AnimatePresence>
-
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-[#0B1528]/85 to-transparent" />
-
-      <p
-        data-testid="hero-carousel-caption"
-        className="absolute top-5 left-5 right-5 font-heading text-lg font-semibold text-white"
+      <Carousel
+        setApi={setApi}
+        className="w-full"
+        opts={{
+          loop: true,
+          align: "start",
+        }}
+        plugins={[
+          Autoplay({
+            delay: INTERVAL_MS,
+            stopOnInteraction: true,
+          }),
+        ]}
       >
-        {slide.caption}
-      </p>
+        <div className="rounded-2xl border border-white/10 shadow-2xl overflow-hidden">
+          <CarouselContent>
+            {HERO_SLIDES.map((slide, index) => (
+              <CarouselItem key={slide.src}>
+                <div className="relative aspect-4/3 w-full overflow-hidden">
+                  <img
+                    src={slide.src}
+                    alt={slide.alt}
+                    data-testid={`hero-carousel-slide-${index + 1}`}
+                    className="size-full object-cover"
+                  />
 
-      <div className="absolute top-14 left-5 flex gap-2">
-        {HERO_SLIDES.map((s, i) => (
-          <button
-            key={s.src}
-            type="button"
-            aria-label={`Show slide ${i + 1}`}
-            aria-current={i === index}
-            data-testid={`hero-carousel-dot-${i + 1}`}
-            onClick={() => go(i)}
-            className={`h-1.5 rounded-full transition-[width,background-color] duration-300 ${
-              i === index ? "w-8 bg-sky-300" : "w-3 bg-white/50 hover:bg-white/80"
-            }`}
-          />
-        ))}
-      </div>
+                  <div className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-[#0B1528]/85 to-transparent" />
 
-      <div className="absolute right-4 bottom-4 flex gap-2">
-        <button
-          type="button"
-          aria-label="Previous slide"
-          data-testid="hero-carousel-prev"
-          onClick={() => go(index - 1)}
-          className="grid size-9 place-items-center rounded-full bg-white/15 text-white backdrop-blur transition-colors duration-200 hover:bg-white/30"
-        >
-          <ChevronLeft className="size-4" />
-        </button>
-        <button
-          type="button"
-          aria-label="Next slide"
-          data-testid="hero-carousel-next"
-          onClick={() => go(index + 1)}
-          className="grid size-9 place-items-center rounded-full bg-white/15 text-white backdrop-blur transition-colors duration-200 hover:bg-white/30"
-        >
-          <ChevronRight className="size-4" />
-        </button>
-      </div>
+                  <p
+                    data-testid="hero-carousel-caption"
+                    className="absolute top-5 left-5 right-5 font-heading text-lg font-semibold text-white"
+                  >
+                    {slide.caption}
+                  </p>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </div>
+
+        <div className="absolute top-14 left-5 flex gap-2 z-10">
+          {HERO_SLIDES.map((s, i) => (
+            <button
+              key={s.src}
+              type="button"
+              aria-label={`Show slide ${i + 1}`}
+              aria-current={i === current}
+              data-testid={`hero-carousel-dot-${i + 1}`}
+              onClick={() => goToSlide(i)}
+              className={`h-1.5 rounded-full transition-[width,background-color] duration-300 ${
+                i === current ? "w-8 bg-sky-300" : "w-3 bg-white/50 hover:bg-white/80"
+              }`}
+            />
+          ))}
+        </div>
+
+        <div className="absolute right-4 bottom-4 flex gap-2 z-10">
+          <CarouselPrevious
+            className="relative inset-0 size-9 bg-white/15 hover:bg-white/30 text-white"
+            variant="ghost"
+          >
+            <ChevronLeft className="size-4" />
+          </CarouselPrevious>
+          <CarouselNext
+            className="relative inset-0 size-9 bg-white/15 hover:bg-white/30 text-white"
+            variant="ghost"
+          >
+            <ChevronRight className="size-4" />
+          </CarouselNext>
+        </div>
+      </Carousel>
     </div>
   );
 }

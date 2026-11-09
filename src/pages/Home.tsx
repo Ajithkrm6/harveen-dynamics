@@ -5,11 +5,11 @@ import {
   BookOpen,
   Briefcase,
   CheckCircle2,
+  MessageCircle,
   MessageSquare,
   Settings2,
   Workflow,
 } from "lucide-react";
-// import { SiWhatsapp } from "@icons-pack/react-simple-icons";
 import { CAREER_ROLES, FAQS, HERO, METHODOLOGY, PROGRAMS, SITE, STATS, WHY_US, whatsappLink } from "@/lib/site";
 import { SectionHeading, Reveal } from "@/components/SectionHeading";
 import { HeroCarousel } from "@/components/HeroCarousel";
@@ -63,7 +63,7 @@ export default function Home() {
                   size: "lg",
                 })} text-slate-900 hover:text-slate-900`}
               >
-                {/* <SiWhatsapp className="size-4 text-[#25D366]" /> WhatsApp Us */}
+                <MessageCircle className="size-4 text-[#25D366]" /> WhatsApp Us
               </a>
             </div>
           </Reveal>
