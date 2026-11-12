@@ -1,7 +1,7 @@
 import { Mail, Phone, MapPin, MessageCircle } from "lucide-react";
 import { SITE, whatsappLink } from "../lib/site";
-import { EnquiryForm } from "./EnquireForm";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../components/ui/card";
+
+import { Card, CardContent, } from "../components/ui/card";
 
 const CONTACT_CARDS = [
   {
@@ -89,7 +89,7 @@ export function ContactSection() {
           </p>
         </div>
 
-        <Card className="h-fit">
+        {/* <Card className="h-fit">
           <CardHeader>
             <CardTitle className="font-heading text-xl font-bold">Enquire Now</CardTitle>
             <CardDescription>
@@ -99,7 +99,7 @@ export function ContactSection() {
           <CardContent>
             <EnquiryForm />
           </CardContent>
-        </Card>
+        </Card> */}
       </div>
     </section>
   );

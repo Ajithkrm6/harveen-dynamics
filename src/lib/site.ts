@@ -1,5 +1,17 @@
 /** Site copy and structure — taken verbatim (lightly polished) from the institute's content document. */
 
+import liveSession from "../assets/live-session.jpeg"
+import industryCirculum from "../assets/industry-curculum.jpeg"
+import onlineLearning from "../assets/online-resources.jpeg"
+import handsOnImp from "../assets/hands-on-implementation.jpeg"
+import realWorld from "../assets/real-life-sinerio.jpeg"
+import certificate from "../assets/certificate.jpeg"
+import resume from "../assets/resume.jpeg"
+import careerGuidance from "../assets/career-guidance.jpeg"
+// import linkedin from "../assets/linkedin.svg"
+import youtube from "../assets/youtube.svg"
+import insta from "../assets/instagram.svg"
+
 export const SITE = {
   name: "Harveen Dynamics",
   logoUrl:
@@ -88,34 +100,50 @@ export const programLabel = (value: string): string =>
 
 export const WHY_US = [
   {
-    title: "Practical, Hands-on Learning",
+    icon: liveSession,
+    title: "Live Online Sessions",
     description:
-      "Learn by working with CRM applications, configurations, automation and practical exercises.",
+      "Instructor-led classes you attend from home, wherever you are in India.",
   },
   {
+    icon: industryCirculum,
     title: "Industry-Oriented Curriculum",
     description:
       "Explore concepts and business scenarios relevant to real-world Dynamics 365 implementations.",
   },
   {
-    title: "Step-by-Step Guidance",
+    icon: handsOnImp,
+    title: "Hands-on Implementation Projects",
     description:
-      "Learn from foundational concepts to advanced configurations through structured training.",
+      "Configure, automate and deliver an end-to-end practical project.",
   },
   {
-    title: "Real-World Projects",
+    icon: realWorld,
+    title: "Real-World Business Scenarios",
     description:
       "Apply your knowledge through implementation-based assignments and practical projects.",
   },
   {
-    title: "Career-Focused Learning",
-    description: "Build technical knowledge, practical confidence and interview readiness.",
+    icon: certificate,
+    title: "Certificate of Completion",
+    description: "Academy-issued Harveen Dynamics certificate on meeting training requirements.",
   },
   {
-    title: "Flexible Online Learning",
-    description:
-      "Learn remotely through online instructor-led sessions and supporting learning resources.",
+    icon: resume,
+    title: "Resume & Interview Prep",
+    description: "Technical interview prep and project explanation sessions.",
   },
+  {
+    icon: careerGuidance,
+    title: "Career Guidance",
+    description:
+      "Get guidance on career paths, job opportunities and professional growth in the Dynamics 365 ecosystem.",
+  },
+  {
+    icon: onlineLearning,
+    title: "Online Learning Resources",
+    description: "Supporting materials to revise and practise at your own pace.",
+  }
 ] as const;
 
 export const METHODOLOGY = [
@@ -227,3 +255,10 @@ export const STATS = [
   { value: "100%", label: "Online — Instructor-led" },
   { value: "1:1", label: "Project Guidance" },
 ] as const;
+
+
+export const Links =[
+  {label: "Instagram", href: "https://www.instagram.com/invites/contact/?utm_content=noc3e4j&rpxt=1qxyoniyvrkwz", icon: insta},
+  // {label: "LinkedIn", href: "linkedin", icon: linkedin},
+  {label: "YouTube", href: "https://www.youtube.com/@HarveenDynamics", icon: youtube},
+]

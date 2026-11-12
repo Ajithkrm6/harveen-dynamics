@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
@@ -6,6 +7,7 @@ import { NAV_LINKS, SITE, whatsappLink } from "@/lib/site";
 
 export default function Navbar() {
   const { pathname } = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -21,7 +23,7 @@ export default function Navbar() {
             src={SITE.logoUrl}
             alt={`${SITE.name} logo`}
             data-testid="navbar-brand-logo"
-            className="size-11 object-contain"
+            className="size-16 object-contain"
           />
           <span className="leading-tight">
             <span className="block font-heading text-base font-bold tracking-tight text-slate-900">
@@ -74,7 +76,7 @@ export default function Navbar() {
         </div>
 
         <div className="lg:hidden">
-          <Sheet>
+          <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
             <SheetTrigger
               aria-label="Open menu"
               data-testid="navbar-mobile-menu-button"
@@ -97,6 +99,7 @@ export default function Navbar() {
                   <Link
                     key={link.href}
                     to={link.href}
+                    onClick={() => setMenuOpen(false)}
                     data-testid={`mobile-nav-link-${link.label.toLowerCase().replace(/\s+/g, "-")}`}
                     className={`rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200 ${
                       isActive(link.href)
@@ -110,6 +113,7 @@ export default function Navbar() {
                 <Link
                   to="/contact"
                   data-testid="mobile-nav-enroll-button"
+                  onClick={() => setMenuOpen(false)}
                   className={`${buttonVariants()} mt-3`}
                 >
                   Enroll Now
@@ -119,6 +123,7 @@ export default function Navbar() {
                   target="_blank"
                   rel="noopener noreferrer"
                   data-testid="mobile-nav-whatsapp-button"
+                  onClick={() => setMenuOpen(false)}
                   className={`${buttonVariants({ variant: "outline" })} mt-2 text-[#1EBE5D]`}
                 >
                   {/* <SiWhatsapp className="size-4" /> WhatsApp Us */}

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, MessageCircle } from "lucide-react";
-import { NAV_LINKS, PROGRAMS, SITE, whatsappLink } from "@/lib/site";
+import { NAV_LINKS, PROGRAMS, SITE, whatsappLink, Links } from "@/lib/site";
+
 
 export default function Footer() {
   return (
@@ -109,6 +110,21 @@ export default function Footer() {
               <li className="flex items-center gap-2">
                 <MapPin className="size-4 shrink-0" /> {SITE.location}
               </li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-sky-300">
+              Social Media
+            </h3>
+            <ul className="flex mt-4  gap-4 space-y-3">
+             {Links.map((icon, index) => (
+                <li key={index}>
+                  <Link to={icon.href} key={index} className="block">
+                    <img src={icon.icon} alt={icon.label} className=" h-10 w-10" />
+                  </Link>
+                </li>
+              ))}
+             
             </ul>
           </div>
         </div>

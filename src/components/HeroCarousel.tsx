@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Autoplay from "embla-carousel-autoplay";
 import {
@@ -17,19 +17,26 @@ export function HeroCarousel() {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
 
+  const handleApiChange = useCallback((carouselApi: CarouselApi) => {
+    setApi(carouselApi);
+    if (carouselApi) {
+      setCurrent(carouselApi.selectedScrollSnap());
+    }
+  }, []);
+
   useEffect(() => {
     if (!api) return;
-
-    setCurrent(api.selectedScrollSnap());
 
     const onSelect = () => {
       setCurrent(api.selectedScrollSnap());
     };
 
     api.on("select", onSelect);
+    api.on("reInit", onSelect);
 
     return () => {
       api.off("select", onSelect);
+      api.off("reInit", onSelect);
     };
   }, [api]);
 
@@ -45,7 +52,7 @@ export function HeroCarousel() {
       aria-label="Harveen Dynamics training highlights"
     >
       <Carousel
-        setApi={setApi}
+        setApi={handleApiChange}
         className="w-full"
         opts={{
           loop: true,

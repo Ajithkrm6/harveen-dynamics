@@ -162,16 +162,19 @@ export default function Home() {
             title="Why Learn With Harveen Dynamics?"
             description="Learning That Goes Beyond Theory. We focus on helping learners understand how technology works in real business environments."
           />
-          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {WHY_US.map((item, i) => (
               <Reveal key={item.title} delay={(i % 3) * 0.08}>
-                <div className="flex h-full gap-4 rounded-xl border border-slate-200 bg-white p-6 transition-shadow duration-300 hover:shadow-md">
-                  <span className="font-mono text-sm font-bold text-[#0078D4]">
+                <div className="flex h-full gap-4 rounded-xl border border-slate-200 bg-white p-6 transition-shadow  duration-300 hover:shadow-md hover:transition-transform hover:scale-105">
+                  {/* <span className="font-mono text-sm font-bold text-[#0078D4]">
                     {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div>
+                  </span> */}
+                  <div className="flex flex-col justify-center items-center">
+                    <div className="flex justify-center items-center">
+                      <img src={item.icon} alt={item.title} className="mb-2 h-40 w-40" />
+                    </div>
                     <h3 className="font-heading text-base font-bold text-slate-900">{item.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-slate-600">{item.description}</p>
+                    <p className="mt-2 text-sm text-center leading-relaxed text-slate-600">{item.description}</p>
                   </div>
                 </div>
               </Reveal>
