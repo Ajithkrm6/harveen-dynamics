@@ -1,7 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Menu } from "lucide-react";
-// import { SiWhatsapp } from "@icons-pack/react-simple-icons";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { NAV_LINKS, SITE, whatsappLink } from "@/lib/site";
 
