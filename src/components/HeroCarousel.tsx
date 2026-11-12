@@ -62,7 +62,7 @@ export function HeroCarousel() {
           <CarouselContent>
             {HERO_SLIDES.map((slide, index) => (
               <CarouselItem key={slide.src}>
-                <div className="relative aspect-4/3 w-full overflow-hidden">
+                <div className="relative aspect-[4/3] w-full overflow-hidden">
                   <img
                     src={slide.src}
                     alt={slide.alt}
